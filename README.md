@@ -1,22 +1,28 @@
 # cw-performance 🏎
+### ⭐ Check out our [Tebex store](https://cw-scripts.tebex.io/category/2523396) for some cheap scripts ⭐
 ## Recommended companion script: [cw-mechtool](https://github.com/Coffeelot/cw-mechtool)
 Simple little script to add ratings to cars depending on performance scores. The scoring checks acceleration, speed, handling, braking. Takes drivetrain into account.
 
 The script itself is small and only contains the functionality to score vehicles and not any fancy way to display it. 
 Motorcycles have **NOT** been tested with. Mainly used for cars.
 
+> Note: As of May 5th 2024 CW performance is core agnostic and does not need QBcore anymore. 
+
 # Preview 📽
 [![YOUTUBE VIDEO](http://img.youtube.com/vi/tUQlQjmS5CA/0.jpg)](https://youtu.be/tUQlQjmS5CA)
 
-# Developed by Coffeelot and Wuggie
-[More scripts by us](https://github.com/stars/Coffeelot/lists/cw-scripts)  👈\
-**Support, updates and script previews**:
+# Links
 
-[![Join The discord!](https://cdn.discordapp.com/attachments/977876510620909579/1013102122985857064/discordJoin.png)](https://discord.gg/FJY4mtjaKr)
+### [More free scripts](https://github.com/stars/Coffeelot/lists/cw-scripts)  👈
 
-**All our scripts are and will remain free**. If you want to support what we do, you can buy us a coffee here:
+### Support, updates and script previews:
 
-[![Buy Us a Coffee](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg)](https://www.buymeacoffee.com/cwscriptbois)
+## <a href="https://discord.gg/FJY4mtjaKr"> 🌭 JOIN THE DISCORD 🌭</a> 
+
+
+### If you want to support what we do, you can buy us a coffee here:
+
+[![Buy Us a Coffee](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg)](https://www.buymeacoffee.com/cwscriptbois )
 
 # Config 🔧
 **Debug**: Activate debug output (this will print all scores in console). Default is*true*\
@@ -27,10 +33,22 @@ Motorcycles have **NOT** been tested with. Mainly used for cars.
 
 ## Basic use
 If you want to use the script you can add this line to get the scores, class brand and rating from anywhere:
-```local info, class, brand, perfRating = exports['cw-performance']:getVehicleInfo(GetVehiclePedIsIn(PlayerPedId()))```
+```local info, class, perfRating = exports['cw-performance']:getVehicleInfo(GetVehiclePedIsIn(PlayerPedId()))```
 You can then use the info.x to get any specific score (info.accel for acceleration for example), class for the letter-class (A-F), brand for the brand of the car, 
 
+Example:
+```lua
+local Player = PlayerPedId()
+local vehicle = GetVehiclePedIsUsing(Player)
+local info, class, perfRating = exports['cw-performance']:getVehicleInfo(vehicle)
+print('CLASS', class)
+print('PERFORMANCE RATING', perfRating)
+print('Info', json.encode(info, {indent=true}))
+```
+
 ## Add to [QB-racing](https://github.com/ItsANoBrainer/qb-racing) 🚗
+> This is dated, but still showcases an example of how to use the info fetch
+
 Basic (just showing class):
 In qb-racing/client/main.lua find the NetEvent called `"qb-racing:Client:OpenMainMenu"` and add this to the top 
 `local info, class, perfRating = exports['cw-performance']:getVehicleInfo(GetPlayersLastVehicle())` 
@@ -44,3 +62,5 @@ If you want a more advanced version, join the discord and check there is a downl
 
 ## Add app 📱
 If you want to add the phone app, check the PHONE.md in the implementations folder.
+
+> This is VERY dated. Highly suggests not using this. If you want to display data, use the the first return value (`info`) from the last example to display all stats etc.
